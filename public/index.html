@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FiadoFácil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="not-logged-in">
+
+    <div id="auth-container">
+        <div class="auth-card">
+            <div class="auth-icon"><i class="fas fa-rocket"></i></div>
+            <h2>FiadoFácil</h2>
+            <p>Acesse sua gestão financeira</p>
+            <input type="email" id="auth-email" placeholder="E-mail">
+            <input type="password" id="auth-senha" placeholder="Senha">
+            <button onclick="fazerLogin()" class="btn-primary">Entrar no Sistema</button>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo-area"><i class="fas fa-robot"></i> <span class="nav-text">FiadoFácil</span></div>
+            <nav>
+                <button onclick="navegar('home')"><i class="fas fa-th-home"></i> <span class="nav-text">Home</span></button>
+                <button onclick="navegar('cliente')"><i class="fas fa-user-plus"></i> <span class="nav-text">Clientes</span></button>
+                <button onclick="navegar('venda')"><i class="fas fa-cart-plus"></i> <span class="nav-text">Nova Venda</span></button>
+                <button onclick="navegar('historico')"><i class="fas fa-receipt"></i> <span class="nav-text">Cobranças</span></button>
+                <button onclick="fazerLogout()" class="logout-btn"><i class="fas fa-power-off"></i> <span class="nav-text">Sair</span></button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section id="tela-home" class="tela active">
+                <div class="stats-grid">
+                    <div class="stat-card danger"><span>A Receber</span><h2 id="total-geral">R$ 0,00</h2></div>
+                    <div class="stat-card success"><span>Recebido</span><h2 id="total-pago">R$ 0,00</h2></div>
+                </div>
+                <div class="chart-container-box"><canvas id="graficoVendas"></canvas></div>
+            </section>
+
+            <section id="tela-cliente" class="tela">
+                <div class="centered-form">
+                    <div class="form-box">
+                        <h2><i class="fas fa-user-plus"></i> Novo Cliente</h2>
+                        <input type="text" id="nome-cliente" placeholder="Nome Completo">
+                        <input type="tel" id="tel-cliente" placeholder="WhatsApp (DDD + Número)">
+                        <button onclick="salvarCliente()" class="btn-primary">Salvar Cliente</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tela-venda" class="tela">
+                <div class="centered-form">
+                    <div class="form-box">
+                        <h2><i class="fas fa-shopping-cart"></i> Lançar Venda</h2>
+                        <input type="hidden" id="venda-id"> <label>Para quem é a venda?</label>
+                        <select id="select-cliente"><option value="">Carregando clientes...</option></select>
+                        
+                        <input type="number" id="valor-venda" placeholder="Valor Total R$ 0,00">
+                        <input type="text" id="desc-venda" placeholder="O que ele comprou?">
+                        
+                        <label>Data de Vencimento</label>
+                        <input type="date" id="vencimento-venda">
+                        
+                        <button onclick="salvarVenda()" class="btn-primary" id="btn-venda-acao">Confirmar Venda</button>
+                        <button onclick="cancelarEdicao()" id="btn-cancelar" style="display:none; margin-top:10px; background:#64748b" class="btn-primary">Cancelar Edição</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tela-historico" class="tela">
+                <div id="lista-historico" class="cards-list">
+                    </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
